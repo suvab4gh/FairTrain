@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "description": "",
+  "name": "FairTrain",
+  "description": "FairTrain is an invisible protocol connecting developers to creators with instant royalty compensation for AI data consumption. Features 0G storage, ENS Identity and KeeperHub streaming rules.",
   "requestFramePermissions": [],
   "majorCapabilities": []
 }
