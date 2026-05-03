@@ -1,0 +1,46 @@
+{
+  "name": "fairtrain-consumption-logger",
+  "version": "1",
+  "trigger": {
+    "type": "onchain-event",
+    "chain": "zerog-testnet",
+    "contract": "0xYOUR_REGISTRY_ADDRESS",
+    "event": "DataConsumed(bytes32,address,uint64,uint256,uint256)"
+  },
+  "actions": [
+    {
+      "type": "call-contract",
+      "description": "Execute royalty payment from pre-funded stream",
+      "contract": "0xYOUR_ROYALTYSTREAM_ADDRESS",
+      "function": "executeConsumption(address,bytes32,uint64)",
+      "args": [
+        "{{event.consumer}}",
+        "{{event.contentHash}}",
+        "{{event.tokenCount}}"
+      ],
+      "gas": {
+        "strategy": "fast",
+        "maxFeePerGas": "auto"
+      },
+      "retry": {
+        "attempts": 3,
+        "backoff": "exponential"
+      }
+    },
+    {
+      "type": "http-post",
+      "description": "Append to 0G audit log",
+      "url": "https://your-0g-log-webhook.fairtrain.dev/log",
+      "body": {
+        "contentHash": "{{event.contentHash}}",
+        "consumer": "{{event.consumer}}",
+        "tokenCount": "{{event.tokenCount}}",
+        "txHash": "{{trigger.txHash}}"
+      }
+    }
+  ],
+  "notifications": {
+    "onSuccess": "webhook:https://your-dashboard.fairtrain.dev/api/notify",
+    "onFailure": "webhook:https://your-dashboard.fairtrain.dev/api/alert"
+  }
+}
