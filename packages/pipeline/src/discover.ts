@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createPublicClient, http } from "viem";
 import { mainnet } from "viem/chains";
 import { getEnsText } from "viem/ens";

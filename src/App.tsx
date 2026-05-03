@@ -1,57 +1,58 @@
-import { useState } from 'react';
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import PitchDeck from './components/PitchDeck';
 import InteractiveDemo from './components/InteractiveDemo';
-import { ArrowLeft } from 'lucide-react';
+import AsciiGlobe from './components/AsciiGlobe';
 
-export default function App() {
-  const [view, setView] = useState<'pitch' | 'demo'>('pitch');
+function Navigation() {
+  const location = useLocation();
+  const isDemo = location.pathname === '/demo';
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans selection:bg-emerald-500/30 selection:text-emerald-200">
-      <header className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            {view === 'demo' && (
-              <button 
-                onClick={() => setView('pitch')}
-                className="p-2 hover:bg-zinc-800 rounded-lg transition-colors text-zinc-400 hover:text-zinc-100"
-                title="Back to Overview"
-              >
-                <ArrowLeft className="w-5 h-5" />
-              </button>
-            )}
-            <div className="font-bold text-xl tracking-tight flex items-center gap-2">
-              <div className="w-6 h-6 rounded bg-emerald-500 flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-zinc-950" />
-              </div>
-              FairTrain
-            </div>
-          </div>
-          
-          <nav className="flex items-center gap-4">
-            <button 
-              onClick={() => setView('pitch')}
-              className={`text-sm font-medium transition-colors ${view === 'pitch' ? 'text-zinc-100' : 'text-zinc-500 hover:text-zinc-300'}`}
-            >
-              Overview
-            </button>
-            <button 
-              onClick={() => setView('demo')}
-              className={`text-sm font-medium transition-colors ${view === 'demo' ? 'text-emerald-400' : 'text-zinc-500 hover:text-emerald-400'}`}
-            >
-              Launch App
-            </button>
-          </nav>
+    <header className="sticky top-0 z-50 border-b-2 border-white bg-black/80 backdrop-blur-md">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          {isDemo && (
+             <Link to="/" className="text-white hover:bg-white hover:text-black transition-colors px-2 py-1 font-bold border border-transparent hover:border-white">
+               {"< BACK"}
+             </Link>
+          )}
+          <Link to="/" className="font-bold text-2xl tracking-[0.2em] flex items-center gap-2 uppercase">
+             [ FAIRTRAIN ]
+          </Link>
         </div>
-      </header>
+        
+        <nav className="flex items-center gap-4">
+          <Link 
+            to="/"
+            className={`text-sm font-bold tracking-widest px-2 py-1 transition-colors border ${!isDemo ? 'border-white text-white' : 'border-transparent text-gray-500 hover:text-white'}`}
+          >
+            OVERVIEW
+          </Link>
+          <Link 
+            to="/demo"
+            className={`text-sm font-bold tracking-widest px-2 py-1 transition-colors border ${isDemo ? 'border-white text-white' : 'border-transparent text-gray-500 hover:text-white'}`}
+          >
+            SYS.INIT(DEMO)
+          </Link>
+        </nav>
+      </div>
+    </header>
+  );
+}
 
-      <main>
-        {view === 'pitch' ? (
-          <PitchDeck onStartDemo={() => setView('demo')} />
-        ) : (
-          <InteractiveDemo />
-        )}
-      </main>
-    </div>
+export default function App() {
+  return (
+    <BrowserRouter>
+      <div className="min-h-screen bg-black text-white font-mono selection:bg-white selection:text-black relative">
+        <AsciiGlobe />
+        <Navigation />
+        <main className="relative z-10">
+          <Routes>
+            <Route path="/" element={<PitchDeck />} />
+            <Route path="/demo" element={<InteractiveDemo />} />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }

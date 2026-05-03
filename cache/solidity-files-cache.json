@@ -1,0 +1,80 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/app/applet/contracts/FairTrainRegistry.sol": {
+      "lastModificationDate": 1777795397659,
+      "contentHash": "2a98c17d959b1a4639f5c70ea6eb3a73",
+      "sourceName": "contracts/FairTrainRegistry.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "FairTrainRegistry",
+        "IUSDC"
+      ]
+    },
+    "/app/applet/contracts/RoyaltyStream.sol": {
+      "lastModificationDate": 1777795400784,
+      "contentHash": "c46309c5ddf2fd69715759e9484db732",
+      "sourceName": "contracts/RoyaltyStream.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "IRegistry",
+        "IUSDC",
+        "RoyaltyStream"
+      ]
+    }
+  }
+}
